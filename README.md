@@ -18,7 +18,7 @@ To bind your classes you must create a DependencyModule and override the **load*
         @Override
         public void load() {
             bind(Soldier.class, USASoldier.class);
-            bind(Soldier.class, NATOSoldier.class).withConstructorArguments("Canadian", 25).named("NATO");
+            bind(Soldier.class, NATOSoldier.class).withConstructorArguments("Canadian").named("NATO");
             bind(Weapon.class, Colt.class).named("Colt");
             bind(Weapon.class, Uzi.class).named("Uzi");
         }
@@ -37,16 +37,17 @@ And now you can resolve your dependencies this way
     Weapon weapon2 = Dependencies.forClass(Weapon.class).named("Colt").resolve();
     
     
-    //USASoldier: Weapon = Colt, Nationality = "" and Age = 0
+    //USASoldier: Weapon = Colt, Nationality = ""
     Soldier soldier = Dependencies.forClass(Soldier.class)
         .withConstructorArguments(weapon2)
         .resolve();
     
-    //NATOSoldier: Weapon = Uzi, Nationality = Canadian and Age = 25
+    //NATOSoldier: Weapon = Uzi, Nationality = Canadian
     Soldier soldier = Dependencies.forClass(Soldier.class)
         .withConstructorArguments(weapon1)
+		.named("NATO")
         .resolve();
         
 Note that you can specify arguments when binding classes and also when resolving a dependency. 
 
-It's also possible to add multiple DependencyModules. Each module will contribute with its' bindings. Bindings with the same type and name will be overwritten (the last one being the valid one).
+It's also possible to add multiple DependencyModules. Each module will contribute with its' bindings. Bindings with the same type and name will be overwritten.
