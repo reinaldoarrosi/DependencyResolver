@@ -11,7 +11,7 @@ DependencyResolver is a simple service locator where you can bind your interface
 - Have fun!
 
 ## Usage
-To register your classes you must create a DependencyModule and override the **load** method
+To bind your classes you must create a DependencyModule and override the **load** method
     
     public class DefaultModule extends DependencyModule {
         
