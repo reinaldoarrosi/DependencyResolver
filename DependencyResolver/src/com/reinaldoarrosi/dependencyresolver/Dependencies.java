@@ -41,8 +41,12 @@ public class Dependencies {
 		}
 		
 		public Criteria<T> withConstructorArguments(Object... argumentValues) {
-			for (int i = 0; i < argumentValues.length; i++)
-				this.myConstructorArguments.add(new ConstructorArgument(argumentValues[i]));
+			for (int i = 0; i < argumentValues.length; i++) {
+				if(argumentValues[i] instanceof ConstructorArgument)
+					this.myConstructorArguments.add((ConstructorArgument)argumentValues[i]);
+				else
+					this.myConstructorArguments.add(new ConstructorArgument(argumentValues[i]));
+			}
 			
 			return this;
 		}

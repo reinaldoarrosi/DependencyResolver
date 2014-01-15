@@ -34,8 +34,12 @@ public abstract class DependencyModule {
 		}
 		
 		public Bind<TSrc, TDest> withConstructorArguments(Object... argumentValues) {
-			for (int i = 0; i < argumentValues.length; i++)
-				this.constructorParameters.add(new ConstructorArgument(argumentValues[i]));
+			for (int i = 0; i < argumentValues.length; i++) {
+				if(argumentValues[i] instanceof ConstructorArgument)
+					this.constructorParameters.add((ConstructorArgument)argumentValues[i]);
+				else
+					this.constructorParameters.add(new ConstructorArgument(argumentValues[i]));
+			}
 			
 			return this;
 		}
